@@ -1,0 +1,45 @@
+{
+  "name": "hellowebapp",
+  "version": "0.0.1",
+  "description": " Koa 2 ",
+  "main": "start.js",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "keywords": [
+    "koa",
+    "async"
+  ],
+  "author": "oliver wang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oliverwangwy"
+  },
+  "dependencies": {
+    "babel-core": "6.13.2",
+    "babel-polyfill": "6.13.0",
+    "babel-preset-es2015-node6": "0.3.0",
+    "babel-preset-stage-3": "6.5.0",
+    "cheerio": "^0.22.0",
+    "cheerio-tableparser": "^1.0.1",
+    "ejs": "^2.5.5",
+    "eventproxy": "^0.3.5",
+    "fs": "0.0.1-security",
+    "iconv": "^2.2.1",
+    "koa": "^2.0.0-alpha.7",
+    "koa-bodyparser": "^3.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^2.0.0",
+    "koa-onerror": "^3.0.1",
+    "koa-router": "^7.0.1",
+    "koa-static": "^2.0.0",
+    "koa-views": "^5.2.0",
+    "path": "^0.12.7",
+    "sha1": "^1.1.1",
+    "superagent": "^3.3.1",
+    "superagent-charset": "^1.1.1",
+    "weui": "^1.1.0"
+  }
+}

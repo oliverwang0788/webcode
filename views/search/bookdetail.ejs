@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>测试爬虫，使用Cheerio分析网页</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>
+                    <%= booktile %>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tabbable" id="tabs-512588">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#panel-934358" data-toggle="tab">表格格式</a>
+                            </li>
+                            <li>
+                                <a href="#panel-946671" data-toggle="tab">工作单格式</a>
+                            </li>
+                            <li>
+                                <a href="#panel-946676" data-toggle="tab">卡片格式</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="panel-934358">
+                                <%- bookbggx %>
+                            </div>
+                            <div class="tab-pane" id="panel-946671">
+                                <%- bookgzdgx %>
+                            </div>
+                            <div class="tab-pane" id="panel-946676">
+                                <%- bookkpgx %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <%- otherlink %>
+                </div>
+            </div>
+            <table class="table">
+                <%- bookgz %>
+                <%- bookdetailaddress%>
+            </table>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+</body>
+</html>

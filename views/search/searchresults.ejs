@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>定向爬虫测试模型</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="text-center text-success">
+                <%= title %>的搜索结果，定向爬虫，可扩充成搜索模型
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-1">
+		</div>
+		<form action="/searchresults" method="post">
+			<div class="col-md-8">
+				<input type="input" class="form-control" value=<%= title %> name="keytsmc">
+			</div>
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-success">
+					搜索
+				</button>
+			</div>
+		</form>
+		<div class="col-md-1">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							序号
+						</th>
+						<th>
+							索取号
+						</th>
+						<th>
+							正题名
+						</th>
+						<th>
+							责任者
+						</th>
+						<th>
+							出版者
+						</th>
+						<th>
+							出版日期
+						</th>
+						<th>
+							预约
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+                <% for(var i=0 ;i<bookdetail.length;i++) {%>
+					<tr class="active">
+						<td>
+                            <%= bookdetail[i].booksno %>
+						</td>
+						<td>
+                            <%= bookdetail[i].bookmarccdoe %>
+						</td>
+						<td>
+                            <%- bookdetail[i].bookname %>
+						</td>
+						<td>
+                            <%= bookdetail[i].author %>
+						</td>
+						<td>
+                            <%= bookdetail[i].press %>
+						</td>
+						<td>
+                            <%= bookdetail[i].pubyear %>
+						</td>
+						<td>
+                            <%- bookdetail[i].bookit %>
+						</td>
+					</tr>
+				<% } %>
+				</tbody>
+			</table>
+			<ul class="pagination">
+				<li>
+					<a href="/searchresults?keytsmc=<%= title %>&pageno=1">首页</a>
+				</li>
+				<% for (var j=1;j<=pageinfo.pages;j++) {%>
+				<li>
+					<a href="/searchresults?keytsmc=<%= title %>&pageno=<%= j.toString() %>"> 第<%= j %>页 </a>
+				</li>
+				<% } %>
+				<li>
+					<a href="/searchresults?keytsmc=<%= title %>&pageno=<%= pageinfo.pages%>">尾页</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
