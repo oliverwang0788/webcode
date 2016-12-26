@@ -11,7 +11,7 @@ const uft2gb = require('../api/utf2gb');
 const scg = require('../api/config');
 
 const search = async(ctx, next) => {
-    await processLibBookInfomation(22323);
+    //await processLibBookInfomation(22323);
     await ctx.render('search/index.ejs', {title: '测试'});
     // await next;
 //
@@ -142,27 +142,6 @@ const getsesearchresults = async(ctx, next) => {
         await ctx.render('search/searchresults.ejs', {bookdetail: bookinfo[0], pageinfo: bookinfo[1], title: keywords});
     }
 };
-
-function compose(middleware) {
-    return function (context, next) {
-        // last called middleware #
-        let index = -1
-        return dispatch(0)
-        function dispatch(i) {
-            if (i <= index) return Promise.reject(new Error('next() called multiple times'))
-            index = i
-            const fn = middleware[i] || next
-            if (!fn) return Promise.resolve()
-            try {
-                return Promise.resolve(fn(context, function next() {
-                    return dispatch(i + 1)
-                }))
-            } catch (err) {
-                return Promise.reject(err)
-            }
-        }
-    }
-}
 
 
 const showbookinfo = async(ctx, next) => {

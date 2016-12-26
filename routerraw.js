@@ -28,7 +28,7 @@ function addMapping(router, mapping) {
 }
 
 function initRouter(router,dir) {
-    var files=fs.readdirSync(__dirname+'/'+dir).filter(function (f) {
+    let files=fs.readdirSync(__dirname+'/'+dir).filter(function (f) {
         return f.endsWith('.js');//数组，javascript的文件的数组
     });
     files.forEach(function (f) {
@@ -39,7 +39,7 @@ function initRouter(router,dir) {
 }//读特定目录的文件
 
 module.exports=function (dir) {
-    var routerdir= dir || 'router';
+    let routerdir= dir || 'router';
     initRouter(router,routerdir);
     //console.log(router)
     return router.routes();
