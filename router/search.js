@@ -12,7 +12,7 @@ const scg = require('../api/config');
 
 const search = async(ctx, next) => {
     //await processLibBookInfomation(22323);
-    await ctx.render('search/index.ejs', {title: '测试'});
+    await ctx.render('search/index.ejs', {title: '初始页面'});
     // await next;
 //
 };
@@ -35,7 +35,7 @@ const processsLibBookCollecttion = async(keywords, pageno = 1) => {
     else {
         url = scg.siteconfig.mswebserver + "/museweb/wxjs/tmjs.asp?page=" + pageno + "&txtWxlx=CN&txtTm=" + uft2gb.HZ2GB(keywords) + "&txtLx=200&txtSearchType=2&nMaxCount=0&nSetPageSize=100&txtPy=HZ&cSortFld=%D5%FD%CC%E2%C3%FB";
     }
-    console.log(url);
+//    console.log(url);
     let data = await rq.get(url).charset('gb2312');
     let hmtlinfo = data.text;
     if (!(hmtlinfo.search('<table align="center" border="0" cellspacing="0" width="98%">') === -1)) {
