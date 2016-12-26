@@ -111,10 +111,6 @@ const processLibBookInfomation = async(TmpKzh) => {
     let data = await rq.get(url).charset('gb2312');
     let $ = cheerio.load(data.text, {decodeEntities: false})
 
-    // let target = $('#header .contain h4 a').eq(0).attr('href')
-    // let alen = $('.co_area2 .co_content8 ul a').length
-    // let dolen = Math.ceil(alen / 2)
-
     bookinfo = $('.tableblack .pmain').html()//取出来了，哈哈，就是一张表格的信息
     bggx = $('.panelContentContainer .panelContent');
     gzdgx = bggx.next();
