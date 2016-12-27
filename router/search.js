@@ -103,7 +103,7 @@ const processsLibBookCollecttion = async(keywords, pageno = 1) => {
 
 }
 const processLibBookInfomation = async(TmpKzh) => {
-    //上一个例子我自己写了一个网页分析过程，那个这个网页我用cheerid插件。
+    //上一个例子我自己写了一个网页分析过程，那个这个网页我用cheerio插件。
     //首先我们要给出的是一个表现书籍详细信息的网页模板，又要做网页，哎，我也很烦，还是用前面介绍过的那网站，想一下，我们该怎么布局。呵呵。
     let url =scg.siteconfig.mswebserver +"/museweb/showmarc/table.asp?nTmpKzh="+TmpKzh;
     let data = await rq.get(url).charset('gb2312');
