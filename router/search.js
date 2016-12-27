@@ -74,10 +74,8 @@ const processsLibBookCollecttion = async(keywords, pageno = 1) => {
                     let removeclass3 = removeclass4m.replace('<td class="tdborder3" align="center">\r\n', '').trim();
                     let removenbsp = removeclass3.replace('\r\n        &nbsp;', '').trim();
                     let removehref = removenbsp.replace('<td class="tdborder4" align="center">\r\n', '').trim();
-                    //console.log(removehref.match(/\r\n/));
-                    //console.log(removehref);
                     if (removehref.search('"../') > 0) {
-                        removehref = removehref.replace('"../', '"' + scg.siteconfig.mswebserver + '/museweb/')
+                        removehref = removehref.replace('../showmarc/table.asp?nTmpKzh=' ,'/showbookinfo?bookno=')
                     }
 
                     if (!(removehref.length == 0))
@@ -105,21 +103,29 @@ const processsLibBookCollecttion = async(keywords, pageno = 1) => {
 
 }
 const processLibBookInfomation = async(TmpKzh) => {
-//上一个例子我自己写了一个网页分析过程，那个这个网页我用cheerid插件。呵呵，我仅仅仅用一个固定的书籍吧，不过参数我是给出的
+    //上一个例子我自己写了一个网页分析过程，那个这个网页我用cheerid插件。
     //首先我们要给出的是一个表现书籍详细信息的网页模板，又要做网页，哎，我也很烦，还是用前面介绍过的那网站，想一下，我们该怎么布局。呵呵。
-    url = "http://210.45.210.6/museweb/showmarc/table.asp?nTmpKzh=1200495";
+    let url =scg.siteconfig.mswebserver +"/museweb/showmarc/table.asp?nTmpKzh="+TmpKzh;
     let data = await rq.get(url).charset('gb2312');
     let $ = cheerio.load(data.text, {decodeEntities: false})
 
-    bookinfo = $('.tableblack .pmain').html()//取出来了，哈哈，就是一张表格的信息
-    bggx = $('.panelContentContainer .panelContent');
-    gzdgx = bggx.next();
-    kpgz = gzdgx.next();
-    otherlink = $('#MARC').next();
-    bookgz = otherlink.next();
-    bookdetailaddress = bookgz.next();
-    return [bggx.html(), gzdgx.html(), kpgz.html(), otherlink.html(), bookgz.html(), bookdetailaddress.html()];
+    //let bookinfo = $('.tableblack .pmain').html()//取出来了，哈哈，就是一张表格的信息
+    let bggx = $('.panelContentContainer .panelContent');
+    let gzdgx = bggx.next();
+    let kpgz = gzdgx.next();
+    let otherlink = $('#MARC').next();
+    let isbn=otherlink.find('td').find('a').attr('href');
+    //let xinfo=otherlink.find('td').html();
+    //console.log(xinfo);
+    //有个bug如果在地址值出现转义字符，.attr('href')会截取错误，还得自己分析这个字段。我就不处理了，你们发挥想象力。例如：
+    //<a href="searchingoogle.asp?cisbn=978-7-301-21540-1&cZtm=" 修养时代"的文学阅读="" "="" target="_blank">
+    //.attr('href')只会截取到"searchingoogle.asp?cisbn=978-7-301-21540-1&cZtm="，后面的cheerio就不管了。于是出现了空书名。
+    let bxinfo= await processOtherLink(isbn);
+    let bookgz = otherlink.next();
+    let bookdetailaddress = bookgz.next();
+    return [bggx.html(), gzdgx.html(), kpgz.html(), bxinfo, bookgz.html(), bookdetailaddress.html()];
 }
+
 const searchresults = async(ctx, next) => {
     let keywords = ctx.request.body.keytsmc;
     //console.log(keywords);
@@ -142,9 +148,9 @@ const getsesearchresults = async(ctx, next) => {
 
 const showbookinfo = async(ctx, next) => {
     let bookno = ctx.request.query.bookno;
-    let data = await processLibBookInfomation(22323)
+    let data = await processLibBookInfomation(bookno)
     await ctx.render('search/bookdetail.ejs', {
-        booktile: '测试结构',
+        booktile: '书籍详细信息',
         bookbggx: data[0],
         bookgzdgx: data[1],
         bookkpgx: data[2],
@@ -153,6 +159,19 @@ const showbookinfo = async(ctx, next) => {
         bookdetailaddress: data[5]
     });
 }
+
+const processOtherLink=async(cisbn)=>
+//searchingoogle.asp?cisbn=978-7-302-26730-0&cZtm=学习XNA游戏编程
+{
+    let bookinfo=cisbn.split('=');
+    let booname=bookinfo[2].trim();
+    let xisbn=bookinfo[1].split('&')
+    let isbn=xisbn[0].replace(/-/g,"");
+    let bxinfo={isbn:isbn,booname:booname}
+    return bxinfo;
+}
+
+
 
 module.exports = {
     'GET /search': search,
